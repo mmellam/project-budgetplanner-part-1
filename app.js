@@ -1,8 +1,5 @@
-//add front end, restrict negaive amounts, refactor if possible, add functionality
-
 const express = require('express');
 const app = express();
-//const cors = require('cors');
 
 const PORT = 3000;
 
@@ -25,16 +22,11 @@ const account = [
         budget: 1000
         }
     }
-]
+];
 
-//app.use(cors());
-/*
-app.post('/test', (req, res) => {
-    res.send('ok')
-})
-*/
 
 const envRouter = express.Router();
+
 app.use('/envelopes', envRouter);
 
 envRouter.param('envelopeId', (req, res, next, id) => {
@@ -49,11 +41,12 @@ envRouter.param('envelopeId', (req, res, next, id) => {
     } catch(err) {
         next(err);
     }
-})
+});
 
 envRouter.get('/', (req, res) => {
     res.json(account)
-})
+});
+
 envRouter.route('/:envelopeId')
     .get((req, res) => {
         res.status(200).send(`Envelope with ID ${req.envelopeId} has the title ${account[0][req.envelopeId].title} and a budget of ${account[0][req.envelopeId].budget}`);
@@ -77,7 +70,7 @@ envRouter.route('/:envelopeId')
     .delete((req, res) => {
         delete account[0][req.envelopeId];
         res.send(`Envelope with ID ${req.envelopeId} was successfully deleted`);
-    })
+    });
 
 envRouter.post('/new', (req, res) => {
     const id = req.query.id;
@@ -94,7 +87,7 @@ envRouter.post('/new', (req, res) => {
         To update its budget, please send a put request.
         To create a new envelope, increase the id number.`)
     }
-})
+});
 
 envRouter.post('/:envelopeId/add', (req, res) => {
     const toAdd = Number(req.query.amount);
@@ -104,7 +97,8 @@ envRouter.post('/:envelopeId/add', (req, res) => {
         account[0][req.envelopeId].budget += toAdd;
         res.status(200).send(`Envelope with ID of ${req.envelopeId} and title ${account[0][req.envelopeId].title}: after adding ${toAdd}, the new budget is ${account[0][req.envelopeId].budget}`);
     }
-})
+});
+
 envRouter.post('/:envelopeId/subtract', (req, res) => {
     const toSubtract = Number(req.query.amount);
 
@@ -114,7 +108,7 @@ envRouter.post('/:envelopeId/subtract', (req, res) => {
         account[0][req.envelopeId].budget -= toSubtract;
         res.status(200).send(`Envelope with ID of ${req.envelopeId} and title ${account[0][req.envelopeId].title}: after subtracting ${toSubtract}, the new budget is ${account[0][req.envelopeId].budget}`);
     }
-})
+});
 
 envRouter.post('/transfer', (req, res) => {
     const from = req.query.from;
@@ -130,8 +124,8 @@ envRouter.post('/transfer', (req, res) => {
         res.send(`Updated budget in env ${from}: ${account[0][from].budget}\n
         Updated budget in env ${to}: ${account[0][to].budget}`)
     }
-})
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
-})
+});
