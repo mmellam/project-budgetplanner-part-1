@@ -1,1 +1,5 @@
-Part 1 of Budgetplanner project. A Node/Express.js API that allows users to create and manage a personal budget. Using Envelope Budgeting principles, the API allows users to manage budget envelopes and track the balance of each envelope. 
+View the documentation on Postman:
+
+https://documenter.getpostman.com/view/16754406/TzsYLo2T
+
+![Alt text](./budgetplanner-part-1-api-doc-md.png?raw=true)

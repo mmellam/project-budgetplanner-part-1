@@ -56,7 +56,7 @@ envRouter.route('/:envelopeId')
         res.status(200).send(`Envelope with ID ${req.envelopeId} has the title ${account[0][req.envelopeId].title} and a budget of ${account[0][req.envelopeId].budget}`);
     })
     .put((req, res) => {
-        const budget = req.query.budget;
+        const budget = Number(req.query.budget);
         const title = req.query.title;
         
         if (budget && title) {
