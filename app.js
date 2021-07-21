@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 5000;
 
 const account = [
     {
@@ -27,6 +27,10 @@ const account = [
 
 const envRouter = express.Router();
 
+app.get('/', (req, res) => {
+    res.send(`<h1>Welcome to Budgetplanner!</h1>`);
+});
+
 app.use('/envelopes', envRouter);
 
 envRouter.param('envelopeId', (req, res, next, id) => {
@@ -44,7 +48,7 @@ envRouter.param('envelopeId', (req, res, next, id) => {
 });
 
 envRouter.get('/', (req, res) => {
-    res.json(account)
+    res.json(account);
 });
 
 envRouter.route('/:envelopeId')
