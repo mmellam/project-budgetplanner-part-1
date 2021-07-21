@@ -83,7 +83,7 @@ envRouter.post('/new', (req, res) => {
         }
         res.status(201).send(`New envelope created: Id ${id}, title ${account[0][id].title}, budget ${account[0][id].budget}`);
     } else {
-        res.send(`This envelope with ID ${id} already exists. Content: title ${account[0][id].title}, budget ${account[0][id].budget}.
+        res.send(`An envelope with ID ${id} already exists. Content: title ${account[0][id].title}, budget ${account[0][id].budget}.
         To update its budget, please send a put request.
         To create a new envelope, increase the id number.`)
     }
